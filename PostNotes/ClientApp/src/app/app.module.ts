@@ -16,6 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DatePipe } from '@angular/common';
+import { NotificationService } from './notification.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -34,13 +36,14 @@ import { DatePipe } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: MyNotesComponent }
     ]),
     BrowserAnimationsModule
     
   ],
-  providers: [MynotesService, DatePipe],
+  providers: [MynotesService, DatePipe, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

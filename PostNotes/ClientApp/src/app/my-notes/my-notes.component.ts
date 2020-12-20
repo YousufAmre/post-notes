@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { initialNoteValue, Note } from '../models/Note';
+import { NotificationService } from '../notification.service';
 import { MynotesService } from './mynotes.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class MyNotesComponent implements OnInit {
     description: new FormControl(''),
   });
 
-  constructor(private _mynotesService: MynotesService, private datePipe: DatePipe) { }
+  constructor(private _mynotesService: MynotesService, private datePipe: DatePipe, private notifyService: NotificationService) { }
 
   ngOnInit() {
     this.note = initialNoteValue;
@@ -61,6 +62,7 @@ export class MyNotesComponent implements OnInit {
     this._mynotesService.postNote(this.note).subscribe(
       response => {
         if (response != null) {
+          this.notifyService.showSuccess("Note Posted Successfully !!", "Success");
           this.isCreating = false;
           this.initializeForm();
           this.ngOnInit();
@@ -86,6 +88,7 @@ export class MyNotesComponent implements OnInit {
     this._mynotesService.updateNote(noteId, noteToUpdate).subscribe(
       response => {
         if (response) {
+          this.notifyService.showSuccess("Note Edited Successfully !!", "Success");
           this.isEdited = true;
           this.getNotes();
           this.initializeForm();
@@ -102,6 +105,7 @@ export class MyNotesComponent implements OnInit {
     this._mynotesService.deleteNote(id).subscribe(
       response => {
         if (response != null) {
+          this.notifyService.showSuccess("Note Deleted Successfully !!", "Success");
           this.isDeleted = true;
           this.ngOnInit();
         }
@@ -132,11 +136,10 @@ export class MyNotesComponent implements OnInit {
 
     
   }
-
+   // When the user clicks on the button, open the modal
   closeModel() {
     var modal = document.getElementById("editModal");
 
-    // When the user clicks on the button, open the modal
     modal.style.display = "none";
   }
 

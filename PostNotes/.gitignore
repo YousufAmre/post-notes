@@ -232,3 +232,15 @@ _Pvt_Extensions
 
 # dependencies
 node_modules
+wwwroot/app/**
+wwwroot/bin/**
+wwwroot/js/**
+wwwroot/scripts/**
+wwwroot/styles/**
+wwwroot/dist/main-client.*
+ClientApp/dist/main-server.*
+
+[Mm]igrations/**
+
+.tscache/**
+.vs/
